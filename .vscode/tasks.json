@@ -10,7 +10,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/builds/${fileBasenameNoExtension}",
-                "-lSDL2"
+                "-lSDLl2"
             ],
             "options": {
                 "cwd": "${fileDirname}"
