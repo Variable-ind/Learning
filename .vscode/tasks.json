@@ -10,7 +10,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/builds/${fileBasenameNoExtension}",
-                "-lSDL2"
+                "-lSDL2" // the SDL2 is in /usr/local/lib
             ],
             "options": {
                 "cwd": "${fileDirname}"
