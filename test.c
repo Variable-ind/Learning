@@ -8,20 +8,49 @@ int main(int argc, const char *argv[]){
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow(
         "Test",
-        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED_DISPLAY(0),
         SDL_WINDOWPOS_UNDEFINED,
         640, 480,
         0
     );
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 0, 225, 255, 255);
-    //clear the screen to blue
-    SDL_RenderClear(renderer);
-    // Present what's drawn so far
-    SDL_RenderPresent(renderer);
-    SDL_Delay(5000);
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
+    
+    int done = 0;
+    SDL_Event event;
+
+    while(!done){
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+                case SDL_WINDOWEVENT_CLOSE:{
+                    if (window){
+                        SDL_DestroyWindow(window);
+                        window = NULL;
+                    }
+                }
+                case SDL_KEYDOWN:{
+                    switch (event.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:{
+                            done = 1;
+                        }
+                        break;
+                    }
+                }
+                case SDL_QUIT:{
+                    done = 1;
+                }
+                break;
+            }
+        }
+
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
+        SDL_Delay(100);
+    }
+
 
     return (0);
 }
